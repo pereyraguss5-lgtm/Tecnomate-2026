@@ -1,0 +1,64 @@
+#include <iostream>
+#define tf 1000
+using namespace std;
+
+void cargarmatriz(int mat[][tf],int n);
+void mostrarmatriz(int mat[][tf],int n);
+int recorrerseldas(int mat[][tf],int n,int tiempo,int& f);
+
+int main() {
+	int N;
+	int t;
+	static int matriz [tf][tf];
+	int c;
+	int fila;
+	
+	cin >> N;
+	cargarmatriz(matriz,N);
+	cin >> t;
+	
+	c = recorrerseldas(matriz,N,t,fila);
+	cout << "Fila Numero: " << fila << " - " << "Cantidad maxima: " << c;
+	
+	return 0;
+}
+
+void cargarmatriz(int mat[][tf],int n){
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			cin >> mat[i][j];
+		}
+	}
+}
+	int recorrerseldas(int mat[][tf],int n,int tiempo,int& f){
+		int aux=0;
+		for(int j=0;j<n;j++){
+			
+			int i = 0;
+			
+			while(i<n){
+				int suma = 0;
+				int cont = 0;
+				bool sepaso = false;
+				int k = i;
+				
+				while(!sepaso and k<n){
+					
+					suma += mat[j][k];
+					
+					if(suma<=tiempo){
+						cont++;
+					}else
+					   sepaso = true;
+					k++;
+				}
+				if(cont>aux){
+					aux = cont;
+					f = j+1;
+					
+				}
+				i++;
+			}
+		}
+		return aux;
+	}
